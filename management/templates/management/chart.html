@@ -1,0 +1,84 @@
+{% extends 'management/base.html' %}
+
+{% block main %}
+
+
+<div class="container p-5">
+
+    <h3 class="text-center">Following are data of {{User.username}} of Age {{User.age}}</h3>
+    <canvas id="myAreaChart"></canvas>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+<script lang="JavaScript">
+    var ctx = document.getElementById("myAreaChart");
+    var data = {
+        labels: {{ DateTime| safe }},
+    datasets: [
+        {
+            label: "Systolic",
+            data: {{ Systolic| safe}},
+        backgroundColor: [
+
+            "rgba(255,0,0,0.7)",
+        ],
+        borderColor: [
+
+            "rgba(255,0,0,0.7)",
+        ],
+        borderWidth: 1
+        },
+        {
+            label: "Diastolic",
+            data: {{ Diastolic| safe}},
+        backgroundColor: [
+
+            "rgba(0,0,255,0.8)",
+        ],
+        borderColor: [
+            "rgba(0,0,255,0.8)",
+
+        ],
+        borderWidth: 1
+        }
+    ]
+    };
+
+    //options
+    var options = {
+        responsive: true,
+        title: {
+            display: true,
+            position: "top",
+            text: "Bar Graph",
+            fontSize: 18,
+            fontColor: "#111"
+        },
+        legend: {
+            display: true,
+            position: "bottom",
+            labels: {
+                fontColor: "#333",
+                fontSize: 16
+            }
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    min: 0
+                }
+            }]
+        }
+    };
+
+    //create Chart class object
+    var chart = new Chart(ctx, {
+        type: "bar",
+        data: data,
+        options: options
+    });
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'management/base.html' %}
+
+
+{% block main %}
+<form method="post" class="p-5">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="upper-bp" class="form-label">Username:</label>
+        <!-- <input type="number" class="form-control" id="upper-bp" name="systolic"> -->
+        <select name="username" class="form-control" id="user">
+            <option value="" disabled selected>Select User</option>
+            {% for user in users %}
+            <option value="{{user.username}}">{{user.mail}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="text-center p-4">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+{% endblock %}
